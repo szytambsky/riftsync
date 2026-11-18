@@ -1,4 +1,4 @@
-package com.rift.riftingester.adapter.out.persistence;
+package com.rift.riftingester.application.adapter.out.persistence;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -7,22 +7,17 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.Instant;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
 
 @Entity
-@Table(name = "catalog_snapshots")
-class CatalogSnapshotEntity {
+@Table(name = "catalog_sync_runs")
+class CatalogSyncRunEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     @Column(nullable = false)
-    Instant fetchedAt;
+    Instant completedAt;
     @Column(nullable = false)
+    String status;
     String etag;
-    String sourceVersion;
-    @Column(nullable = false, columnDefinition = "jsonb")
-    @JdbcTypeCode(SqlTypes.JSON)
-    String payload;
+    String detail;
 }

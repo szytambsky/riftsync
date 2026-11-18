@@ -1,4 +1,4 @@
-package com.rift.riftingester.adapter.out.persistence;
+package com.rift.riftingester.application.adapter.out.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

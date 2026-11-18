@@ -1,4 +1,4 @@
-package com.rift.riftingester.adapter.in.scheduler;
+package com.rift.riftingester.application.adapter.in.scheduler;
 
 import com.rift.riftingester.application.port.in.SynchronizeCatalogUseCase;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

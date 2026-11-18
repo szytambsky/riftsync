@@ -1,4 +1,4 @@
-package com.rift.riftingester.adapter.out.persistence;
+package com.rift.riftingester.application.adapter.out.persistence;
 
 import com.rift.riftingester.application.port.out.CatalogSnapshotRepositoryPort;
 import com.rift.riftingester.domain.model.CatalogSnapshot;

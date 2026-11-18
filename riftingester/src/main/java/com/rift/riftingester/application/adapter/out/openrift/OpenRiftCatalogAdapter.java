@@ -1,4 +1,4 @@
-package com.rift.riftingester.adapter.out.openrift;
+package com.rift.riftingester.application.adapter.out.openrift;
 
 import com.rift.riftingester.application.port.out.CatalogSourcePort;
 import com.rift.riftingester.config.OpenRiftProperties;
