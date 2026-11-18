@@ -16,7 +16,9 @@ public class CatalogSynchronizationService implements SynchronizeCatalogUseCase 
     private final CatalogSnapshotRepositoryPort repository;
     private final Clock clock;
 
-    public CatalogSynchronizationService(CatalogSourcePort source, CatalogSnapshotRepositoryPort repository, Clock clock) {
+    public CatalogSynchronizationService(CatalogSourcePort source,
+                                         CatalogSnapshotRepositoryPort repository,
+                                         Clock clock) {
         this.source = source;
         this.repository = repository;
         this.clock = clock;

@@ -3,7 +3,6 @@ package com.rift.riftingester.adapter.out.persistence;
 import com.rift.riftingester.application.port.out.CatalogSnapshotRepositoryPort;
 import com.rift.riftingester.domain.model.CatalogSnapshot;
 import java.time.Instant;
-import java.util.Optional;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,12 +17,13 @@ class PostgresCatalogSnapshotAdapter implements CatalogSnapshotRepositoryPort {
     }
 
     @Override
-    public Optional<String> findLatestEtag() {
-        return snapshots.findTopByOrderByFetchedAtDesc()
-                .map(snapshot -> snapshot.etag);
+    public String findLatestEtag() {
+        CatalogSnapshotEntity catalogSnapshot = snapshots.findTopByOrderByFetchedAtDesc();
+        return catalogSnapshot.etag;
     }
 
-    @Override @Transactional
+    @Transactional
+    @Override
     public void save(CatalogSnapshot snapshot, String etag, Instant completedAt) {
         var entity = new CatalogSnapshotEntity();
         entity.fetchedAt = snapshot.fetchedAt();

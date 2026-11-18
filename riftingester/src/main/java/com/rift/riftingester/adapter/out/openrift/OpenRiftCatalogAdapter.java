@@ -4,7 +4,6 @@ import com.rift.riftingester.application.port.out.CatalogSourcePort;
 import com.rift.riftingester.config.OpenRiftProperties;
 import com.rift.riftingester.domain.model.CatalogSnapshot;
 import java.time.Clock;
-import java.util.Optional;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -28,7 +27,7 @@ class OpenRiftCatalogAdapter implements CatalogSourcePort {
     }
 
     @Override
-    public FetchResult fetchCatalog(Optional<String> knownEtag) {
+    public FetchResult fetchCatalog(String knownEtag) {
         ResponseEntity<String> response = client.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/api/v1/catalog")
@@ -40,7 +39,7 @@ class OpenRiftCatalogAdapter implements CatalogSourcePort {
 
         String etag = response.getHeaders().getETag();
         if (response.getStatusCode().value() == 304) {
-            return new FetchResult.NotModified(etag != null ? etag : knownEtag.orElse(null));
+            return new FetchResult.NotModified(etag != null ? etag : knownEtag);
         }
 
         if (!response.getStatusCode().is2xxSuccessful() || response.getBody() == null || etag == null) {
@@ -56,8 +55,8 @@ class OpenRiftCatalogAdapter implements CatalogSourcePort {
         );
     }
 
-    private void addRequestHeaders(HttpHeaders headers, Optional<String> knownEtag) {
+    private void addRequestHeaders(HttpHeaders headers, String knownEtag) {
         headers.set(HttpHeaders.USER_AGENT, properties.userAgent());
-        knownEtag.ifPresent(headers::setIfNoneMatch);
+        headers.setIfNoneMatch(knownEtag);
     }
 }
