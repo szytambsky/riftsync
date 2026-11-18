@@ -74,28 +74,6 @@ In Building
 
 Backend and frontend setup instructions will be provided here once the initial application structure is available.
 
-## Roadmap
-
-- [ ] Initial project setup
-- [ ] Card database integration
-- [ ] PostgreSQL data model
-- [ ] Card search and filtering
-- [ ] Deck creation and management
-- [ ] Decklist import
-- [ ] Cost Curve Analyzer
-- [ ] Card Type Analyzer
-- [ ] Domain Analyzer
-- [ ] Analysis dashboard
-- [ ] Deck scoring system
-- [ ] Recommendation engine
-- [ ] Card synergy detection
-- [ ] Deck version history
-- [ ] Deck comparison
-- [ ] Automated tests
-- [ ] Docker configuration
-- [ ] CI/CD pipeline
-- [ ] Public deployment
-
 ## Project Goals
 
 This project is developed as a practical full-stack application and a learning opportunity focused on:
