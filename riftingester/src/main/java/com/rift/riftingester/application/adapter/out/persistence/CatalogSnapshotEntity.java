@@ -16,7 +16,7 @@ import org.hibernate.type.SqlTypes;
 class CatalogSnapshotEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    String id;
     @Column(nullable = false)
     Instant fetchedAt;
     @Column(nullable = false)

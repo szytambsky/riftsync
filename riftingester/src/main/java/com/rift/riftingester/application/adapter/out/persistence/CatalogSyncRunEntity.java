@@ -13,7 +13,7 @@ import java.time.Instant;
 class CatalogSyncRunEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    String id;
     @Column(nullable = false)
     Instant completedAt;
     @Column(nullable = false)
