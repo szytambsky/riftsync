@@ -57,6 +57,8 @@ class OpenRiftCatalogAdapter implements CatalogSourcePort {
 
     private void addRequestHeaders(HttpHeaders headers, String knownEtag) {
         headers.set(HttpHeaders.USER_AGENT, properties.userAgent());
-        headers.setIfNoneMatch(knownEtag);
+        if (knownEtag != null) {
+            headers.setIfNoneMatch(knownEtag);
+        }
     }
 }

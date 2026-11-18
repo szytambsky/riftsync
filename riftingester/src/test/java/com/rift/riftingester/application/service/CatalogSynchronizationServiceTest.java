@@ -9,6 +9,7 @@ import com.rift.riftingester.domain.model.SyncStatus;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneOffset;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 class CatalogSynchronizationServiceTest {
@@ -27,7 +28,7 @@ class CatalogSynchronizationServiceTest {
 
     private static final class RecordingRepository implements CatalogSnapshotRepositoryPort {
         String savedEtag;
-        public String findLatestEtag() { return "etag-1"; }
+        public Optional<String> findLatestEtag() { return Optional.empty(); }
         public void save(CatalogSnapshot snapshot, String etag, Instant completedAt) { savedEtag = etag; }
         public void recordUnchanged(String etag, Instant completedAt) { }
         public void recordFailure(String detail, Instant completedAt) { }

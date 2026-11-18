@@ -28,7 +28,7 @@ public class CatalogSynchronizationService implements SynchronizeCatalogUseCase 
     public SyncResult synchronize() {
         Instant completedAt = clock.instant();
         try {
-            var result = source.fetchCatalog(repository.findLatestEtag());
+            var result = source.fetchCatalog(repository.findLatestEtag().orElse(null));
             if (result instanceof CatalogSourcePort.FetchResult.Modified modified) {
                 repository.save(modified.snapshot(), modified.etag(), completedAt);
                 return new SyncResult(SyncStatus.SUCCEEDED, completedAt, "Catalog snapshot stored");
