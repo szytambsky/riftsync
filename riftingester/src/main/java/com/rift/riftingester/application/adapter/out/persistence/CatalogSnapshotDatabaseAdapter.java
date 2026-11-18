@@ -4,18 +4,17 @@ import com.rift.riftingester.application.port.out.CatalogSnapshotRepositoryPort;
 import com.rift.riftingester.domain.model.CatalogSnapshot;
 import java.time.Instant;
 import java.util.Optional;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
-class PostgresCatalogSnapshotAdapter implements CatalogSnapshotRepositoryPort {
-    private final SpringDataCatalogSnapshotRepository snapshots;
-    private final SpringDataCatalogSyncRunRepository syncRuns;
-
-    PostgresCatalogSnapshotAdapter(SpringDataCatalogSnapshotRepository snapshots, SpringDataCatalogSyncRunRepository syncRuns) {
-        this.snapshots = snapshots;
-        this.syncRuns = syncRuns;
-    }
+@RequiredArgsConstructor(onConstructor_ = @__(@Autowired))
+class CatalogSnapshotDatabaseAdapter implements CatalogSnapshotRepositoryPort {
+    private final CatalogSnapshotRepository snapshots;
+    private final CatalogSyncRunRepository syncRuns;
 
     @Override
     public Optional<String> findLatestEtag() {
