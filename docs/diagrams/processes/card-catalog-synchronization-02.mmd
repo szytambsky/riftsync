@@ -1,0 +1,14 @@
+flowchart TD
+    Start([Start synchronisation]) --> Check{Do we have a previous ETag?}
+
+    Check -- No, first import --> Full[OpenRift returns the full list of cards]
+    Check -- Yes --> Request[Query to OpenRift with ETag]
+
+    Request --> Changed{Has the list changed?}
+    Changed -- No --> Unchanged[No data retrieval]
+    Unchanged --> History[Record synchronisation history]
+
+    Changed -- Yes --> Full
+    Full --> Store[Save directory and new ETag]
+    Store --> Done([Synchronisation complete])
+    History --> Done
