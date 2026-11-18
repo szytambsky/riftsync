@@ -1,0 +1,17 @@
+sequenceDiagram
+    participant S as Schedule
+    participant R as Riftingester
+    participant API as OpenRift API
+    participant DB as Database
+
+    S->>R: Start synchronisation
+    R->>API: GET /cards
+    API-->>R: Card catalogue
+
+    alt New or changed data
+        R->>DB: Save cards
+    else No changes
+        Note over R: Skip saving
+    end
+
+    R->>DB: Save synchronisation result
