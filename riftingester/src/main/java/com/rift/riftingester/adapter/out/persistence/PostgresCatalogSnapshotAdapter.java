@@ -19,23 +19,32 @@ class PostgresCatalogSnapshotAdapter implements CatalogSnapshotRepositoryPort {
 
     @Override
     public Optional<String> findLatestEtag() {
-        return snapshots.findTopByOrderByFetchedAtDesc().map(snapshot -> snapshot.etag);
+        return snapshots.findTopByOrderByFetchedAtDesc()
+                .map(snapshot -> snapshot.etag);
     }
 
     @Override @Transactional
     public void save(CatalogSnapshot snapshot, String etag, Instant completedAt) {
         var entity = new CatalogSnapshotEntity();
-        entity.fetchedAt = snapshot.fetchedAt(); entity.etag = etag;
-        entity.sourceVersion = snapshot.sourceVersion(); entity.payload = snapshot.rawJson();
+        entity.fetchedAt = snapshot.fetchedAt();
+        entity.etag = etag;
+        entity.sourceVersion = snapshot.sourceVersion();
+        entity.payload = snapshot.rawJson();
         snapshots.save(entity);
         record("SUCCEEDED", etag, "Catalog snapshot stored", completedAt);
     }
 
-    @Override @Transactional
-    public void recordUnchanged(String etag, Instant completedAt) { record("NOT_MODIFIED", etag, "Provider returned 304", completedAt); }
+    @Transactional
+    @Override
+    public void recordUnchanged(String etag, Instant completedAt) {
+        record("NOT_MODIFIED", etag, "Provider returned 304", completedAt);
+    }
 
-    @Override @Transactional
-    public void recordFailure(String detail, Instant completedAt) { record("FAILED", null, detail, completedAt); }
+    @Transactional
+    @Override
+    public void recordFailure(String detail, Instant completedAt) {
+        record("FAILED", null, detail, completedAt);
+    }
 
     private void record(String status, String etag, String detail, Instant completedAt) {
         var run = new CatalogSyncRunEntity();

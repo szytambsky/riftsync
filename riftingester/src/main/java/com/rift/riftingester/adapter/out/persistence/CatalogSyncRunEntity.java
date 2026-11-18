@@ -11,7 +11,8 @@ import java.time.Instant;
 @Entity
 @Table(name = "catalog_sync_runs")
 class CatalogSyncRunEntity {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     @Column(nullable = false)
     Instant completedAt;

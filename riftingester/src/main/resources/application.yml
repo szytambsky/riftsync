@@ -27,6 +27,8 @@ ingester:
     base-url: https://openrift.app
     user-agent: Riftingester/0.1 (contact@example.com)
     connect-timeout: 15s
+    read-timeout: 30s
+    catalog-languages: EN
   sync:
     cron: "0 0 5 * * *"
     scheduler-enabled: true
